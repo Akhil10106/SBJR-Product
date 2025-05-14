@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriSmart CRM - User Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h1>AgriSmart CRM</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-link active" onclick="showSection('purchases')" data-section="purchases"><i class="fas fa-shopping-cart"></i> My Purchases</a>
+                <a href="#" class="nav-link" onclick="showSection('profile')" data-section="profile"><i class="fas fa-user"></i> Profile</a>
+                <a href="#" class="nav-link" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </nav>
+        </div>
+        <div class="content">
+            <div class="purchases-section" id="purchases-section">
+                <h2>My Purchases</h2>
+                <p>Explore your purchase history with detailed insights.</p>
+                <div class="purchase-grid" id="purchase-grid"></div>
+            </div>
+            <div class="profile-section" id="profile-section" style="display: none;">
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="avatar">
+                            <img id="profile-picture" src="https://via.placeholder.com/100" alt="Profile Picture">
+                            <input type="file" id="profile-picture-input" accept="image/*" style="display: none;">
+                            <button class="form-btn small" onclick="document.getElementById('profile-picture-input').click()">Change Picture</button>
+                        </div>
+                        <h2 id="profile-name">User Name</h2>
+                        <p id="profile-email">user@example.com</p>
+                    </div>
+                    <div class="profile-details">
+                        <h3>Profile Details</h3>
+                        <div class="form-grid">
+                            <input type="text" id="profile-display-name" placeholder="Display Name">
+                            <input type="tel" id="profile-phone" placeholder="Phone Number">
+                        </div>
+                        <button class="form-btn" onclick="updateProfile()">Update Profile</button>
+                    </div>
+                    <div class="profile-stats">
+                        <h3>Your Stats</h3>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <i class="fas fa-shopping-cart"></i>
+                                <h3>Total Purchases</h3>
+                                <p id="total-purchases">0</p>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-rupee-sign"></i>
+                                <h3>Total Spent</h3>
+                                <p id="total-spent">₹0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="settings-card">
+                        <h3>Settings</h3>
+                        <div class="setting-item">
+                            <label>Dark Mode</label>
+                            <label class="switch">
+                                <input type="checkbox" id="dark-mode-toggle" onchange="toggleTheme()">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>Push Notifications</label>
+                            <label class="switch">
+                                <input type="checkbox" id="notification-toggle">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="activity-overview">
+                        <h3>Recent Activity</h3>
+                        <ul id="activity-list">
+                            <li>No recent activity</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal" id="product-modal" style="display: none;">
+                <div class="modal-content">
+                    <span class="modal-close" onclick="closeModal()">&times;</span>
+                    <h2 id="modal-product-name">Product Name</h2>
+                    <div class="modal-details">
+                        <p><i class="fas fa-box"></i> <strong>Quantity:</strong> <span id="modal-quantity">0</span></p>
+                        <p><i class="fas fa-rupee-sign"></i> <strong>Total Price:</strong> ₹<span id="modal-total-price">0.00</span></p>
+                        <p><i class="fas fa-calendar"></i> <strong>Purchase Date:</strong> <span id="modal-purchase-date">-</span></p>
+                        <p><i class="fas fa-check-circle"></i> <strong>Status:</strong> <span id="modal-payment-status">-</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="notification" id="notification"></div>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+    <script src="user.js"></script>
+</body>
+</html>

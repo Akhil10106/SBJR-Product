@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriSmart CRM - Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h1>AgriSmart CRM</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-link active" onclick="showSection('dashboard')" data-section="dashboard"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="#" class="nav-link" onclick="showSection('add-purchase')" data-section="add-purchase"><i class="fas fa-plus-circle"></i> Add Purchase</a>
+                <a href="#" class="nav-link" onclick="showSection('customers')" data-section="customers"><i class="fas fa-users"></i> Customers</a>
+                <a href="#" class="nav-link" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </nav>
+        </div>
+        <div class="content">
+            <div class="dashboard" id="dashboard-section">
+                <h2>Admin Dashboard</h2>
+                <p>Manage customers and purchases across the system.</p>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <h3>Total Customers</h3>
+                        <p id="total-customers">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-rupee-sign"></i>
+                        <h3>Total Payments</h3>
+                        <p id="total-payments">₹0</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-hourglass-half"></i>
+                        <h3>Pending Amount</h3>
+                        <p id="pending-amount">₹0</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-star"></i>
+                        <h3>Top Customer</h3>
+                        <p id="top-customer">-</p>
+                    </div>
+                </div>
+            </div>
+            <div class="add-purchase-section" id="add-purchase-section" style="display: none;">
+                <div class="add-customer-form">
+                    <h2>Add Customer Purchase</h2>
+                    <form id="customer-form">
+                        <div class="form-grid">
+                            <input type="text" id="customer-name" placeholder="Customer Name" required>
+                            <input type="text" id="residence" placeholder="Residence/Address" required>
+                            <input type="tel" id="phone-number" placeholder="Phone Number" required>
+                            <input type="text" id="product-name" placeholder="Product Name" required>
+                            <input type="number" id="quantity" placeholder="Quantity" min="1" required>
+                            <input type="number" id="price-per-unit" placeholder="Price per Unit" min="0" step="0.01" required>
+                            <input type="text" id="total-price" placeholder="Total Price" readonly>
+                            <select id="payment-status" required>
+                                <option value="Pending">Pending</option>
+                                <option value="Paid">Paid</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="form-btn">Add Purchase</button>
+                    </form>
+                </div>
+            </div>
+            <div class="customers-section" id="customers-section" style="display: none;">
+                <div class="table-container">
+                    <h3>All Customers</h3>
+                    <table class="customer-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Residence</th>
+                                <th>Phone</th>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customer-table-body"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="notification" id="notification"></div>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
